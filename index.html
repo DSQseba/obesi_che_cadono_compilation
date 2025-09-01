@@ -1,24 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Password Protected Video</title>
+  <title>Password Protected Video + Patreon List</title>
   <style>
-    /* Page base */
     html, body {
       height: 100%;
       margin: 0;
       background: #000;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: #fff;
     }
 
-    /* Container that centers content vertically & horizontally */
+    /* Center container */
     .center {
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     /* Hide main app until unlocked */
@@ -26,10 +30,10 @@
 
     /* Login panel */
     #gate {
-      position: fixed; inset: 0;        /* covers the screen */
+      position: fixed; inset: 0;
       display: flex; align-items: center; justify-content: center;
       background: radial-gradient(circle at 50% 40%, #111, #000 60%);
-      z-index: 10;                       /* ensure it sits on top */
+      z-index: 10;
     }
     .panel {
       width: min(92vw, 420px);
@@ -49,19 +53,47 @@
     }
     .msg { margin-top: 10px; font-size: .9rem; color: #f87171; min-height: 1.2em; }
 
-    /* Video layout (responsive, centered, no overflow) */
-    #app.center { padding: 0 0; }
+    /* Video layout */
     .video-container {
       position: relative;
       width: 100%;
       max-width: 100vw;
-      max-height: 100vh;
+      max-height: 60vh; /* non prende tutto lo schermo così resta spazio per la lista */
       aspect-ratio: 16 / 9;
     }
     .video-container iframe {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       border: 0;
+    }
+
+    /* Patreon section */
+    .patreon {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 20px;
+      width: 100%;
+      max-width: 600px;
+    }
+    .patreon h3 {
+      margin-top: 0;
+      text-align: center;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: #facc15; /* giallo oro */
+    }
+    .patreon ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .patreon li {
+      margin: 6px 0;
+      font-size: 1rem;
+    }
+    .patreon li:first-child {
+      font-weight: bold;
+      color: #22c55e; /* verde per il top */
     }
   </style>
 </head>
@@ -70,7 +102,7 @@
   <!-- Login Gate -->
   <div id="gate">
     <div class="panel">
-      <h2>Enter Password</h2>
+      <h2>Inserisci Password</h2>
       <div class="row">
         <input id="pw" type="password" placeholder="Password" autocomplete="off" />
         <button id="go" type="button">Unlock</button>
@@ -82,13 +114,31 @@
   <!-- Main App -->
   <div id="app" class="center">
     <div class="video-container">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/7wEwLmjDIxU?si=HZJqG8J21o0Aa9Cv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe
+        src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+        title="YouTube video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+
+    <!-- Patreon Section -->
+    <div class="patreon">
+      <h3>Principali Patreon del Sito</h3>
+      <ol>
+        <li>NicolaDeMarchi_001</li>
+        <li>DarkWolf89</li>
+        <li>Luna_Rossa92</li>
+        <li>PixelHunter77</li>
+        <li>SakuraBloomX</li>
+        <li>IronForge_21</li>
+        <li>EchoByte_999</li>
+      </ol>
     </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // >>>>>> Set your password here (plain text; simple gate) <<<<<<
+      // >>>>>> Cambia qui la password <<<<<<
       const PASSWORD = "ciao";
 
       const gate = document.getElementById('gate');
@@ -98,31 +148,27 @@
       const msg  = document.getElementById('msg');
 
       function unlock() {
-        // Hide gate, show app
         gate.style.display = 'none';
-        app.style.display  = 'flex';   // because #app uses .center flex layout
+        app.style.display  = 'flex';
       }
 
       function check() {
-        if (!pw) return; // safety
         if (pw.value === PASSWORD) {
           msg.textContent = '';
           unlock();
         } else {
-          msg.textContent = 'Wrong password.';
+          msg.textContent = 'Password errata.';
           pw.value = '';
           pw.focus();
         }
       }
 
-      // Wire up events (also handle Enter key)
       btn.addEventListener('click', check);
       pw.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') check();
       });
 
-      // Focus password on load
-      setTimeout(() => pw && pw.focus(), 0);
+      pw.focus();
     });
   </script>
 </body>
