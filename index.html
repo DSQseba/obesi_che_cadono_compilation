@@ -5,105 +5,124 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Password Protected Video</title>
   <style>
+    /* Page base */
     html, body {
       height: 100%;
       margin: 0;
       background: #000;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* Container that centers content vertically & horizontally */
+    .center {
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    /* Hide main content until unlocked */
+
+    /* Hide main app until unlocked */
     #app { display: none; }
 
-    /* Login screen */
-    .gate {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background: #111;
-      padding: 20px;
-      border-radius: 10px;
-      font-family: sans-serif;
+    /* Login panel */
+    #gate {
+      position: fixed; inset: 0;        /* covers the screen */
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at 50% 40%, #111, #000 60%);
+      z-index: 10;                       /* ensure it sits on top */
     }
-    input, button {
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #333;
-      font-size: 1rem;
+    .panel {
+      width: min(92vw, 420px);
+      background:#111; border:1px solid #222; border-radius:14px; padding:22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.6);
+      color:#eee;
     }
-    button {
-      background: #3b82f6;
-      color: #fff;
-      cursor: pointer;
-      border: none;
+    .panel h2 { margin: 0 0 10px; font-size: 1.15rem; }
+    .panel .row { display:flex; gap: 10px; }
+    .panel input[type="password"] {
+      flex: 1; padding: 12px; border-radius: 10px; border: 1px solid #333;
+      background: #0c0c0c; color: #fff; outline: none;
     }
-    .msg {
-      color: #f87171;
-      min-height: 1em;
-      font-size: 0.9rem;
+    .panel button {
+      padding: 12px 16px; border-radius: 10px; border: 0; cursor: pointer;
+      background: #3b82f6; color: #fff;
     }
+    .msg { margin-top: 10px; font-size: .9rem; color: #f87171; min-height: 1.2em; }
 
-    /* Video styling */
+    /* Video layout (responsive, centered, no overflow) */
+    #app.center { padding: 0 0; }
     .video-container {
       position: relative;
       width: 100%;
       max-width: 100vw;
       max-height: 100vh;
-      aspect-ratio: 16/9;
+      aspect-ratio: 16 / 9;
     }
     .video-container iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: 0;
     }
   </style>
 </head>
 <body>
+
   <!-- Login Gate -->
-  <div id="gate" class="gate">
-    <h2 style="color:#fff; margin:0;">Enter Password</h2>
-    <input id="pw" type="password" placeholder="Password" />
-    <button id="go">Unlock</button>
-    <div id="msg" class="msg"></div>
+  <div id="gate">
+    <div class="panel">
+      <h2>Enter Password</h2>
+      <div class="row">
+        <input id="pw" type="password" placeholder="Password" autocomplete="off" />
+        <button id="go" type="button">Unlock</button>
+      </div>
+      <div id="msg" class="msg"></div>
+    </div>
   </div>
 
-  <!-- Page Content -->
-  <div id="app">
+  <!-- Main App -->
+  <div id="app" class="center">
     <div class="video-container">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/7wEwLmjDIxU?si=HZJqG8J21o0Aa9Cv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
   </div>
 
   <script>
-    // >>>>>> Set your password here <<<<<<
-    const PASSWORD = "cacca_popo_pupu_cacca";
+    document.addEventListener('DOMContentLoaded', () => {
+      // >>>>>> Set your password here (plain text; simple gate) <<<<<<
+      const PASSWORD = "ciao";
 
-    const gate = document.getElementById('gate');
-    const app  = document.getElementById('app');
-    const pw   = document.getElementById('pw');
-    const btn  = document.getElementById('go');
-    const msg  = document.getElementById('msg');
+      const gate = document.getElementById('gate');
+      const app  = document.getElementById('app');
+      const pw   = document.getElementById('pw');
+      const btn  = document.getElementById('go');
+      const msg  = document.getElementById('msg');
 
-    function unlock() {
-      gate.style.display = "none";
-      app.style.display = "block";
-    }
-
-    function check() {
-      if (pw.value === PASSWORD) {
-        unlock();
-      } else {
-        msg.textContent = "Wrong password.";
-        pw.value = "";
-        pw.focus();
+      function unlock() {
+        // Hide gate, show app
+        gate.style.display = 'none';
+        app.style.display  = 'flex';   // because #app uses .center flex layout
       }
-    }
 
-    btn.addEventListener('click', check);
-    pw.addEventListener('keydown', e => {
-      if (e.key === 'Enter') check();
+      function check() {
+        if (!pw) return; // safety
+        if (pw.value === PASSWORD) {
+          msg.textContent = '';
+          unlock();
+        } else {
+          msg.textContent = 'Wrong password.';
+          pw.value = '';
+          pw.focus();
+        }
+      }
+
+      // Wire up events (also handle Enter key)
+      btn.addEventListener('click', check);
+      pw.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') check();
+      });
+
+      // Focus password on load
+      setTimeout(() => pw && pw.focus(), 0);
     });
   </script>
 </body>
