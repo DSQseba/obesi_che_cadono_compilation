@@ -3,10 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouTube Video Example</title>
+  <title>Full-Width Centered Video</title>
+  <style>
+    body {
+      margin: 0; /* remove default margins */
+      background-color: #000; /* optional: black background */
+    }
+    .video-container {
+      position: relative;
+      width: 100%;       /* full width */
+      padding-bottom: 56.25%; /* 16:9 aspect ratio (height/width = 9/16 = 0.5625) */
+      height: 0;
+      overflow: hidden;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;  /* stretch to edges */
+      height: 100%; /* keep aspect ratio */
+    }
+  </style>
 </head>
 <body>
-  <h1>My Video</h1>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/7wEwLmjDIxU?si=HZJqG8J21o0Aa9Cv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/7wEwLmjDIxU?si=HZJqG8J21o0Aa9Cv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
 </body>
 </html>
