@@ -145,3 +145,51 @@ html, body {
 /* Resto della lista: standard, nessun highlight extra */
 .rest { /* numerazione standard già attiva via <ol> */ }
 .rest li { background: none; border: none; padding: 0; }
+
+/* Nuove Donazioni */
+.donations {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 720px;
+  margin-top: 20px;
+}
+
+.donations h3 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #f87171; /* evidenziazione */
+}
+
+.donations-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.donations-list li {
+  margin: 8px 0;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.donations .amount {
+  color: #22c55e;   /* verde per importi */
+  font-weight: 600;
+}
+
+/* piccola rifinitura per schermi stretti */
+@media (max-width: 420px) {
+  .donations-list li {
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+}
+
