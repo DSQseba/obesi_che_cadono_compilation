@@ -193,3 +193,129 @@ html, body {
   }
 }
 
+/* Donate box */
+.donate {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 720px;
+  margin-top: 20px;
+}
+.donate h3 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+  color: #86efac; /* verde tenue */
+}
+.donate-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+.donate-controls label {
+  grid-column: 1 / -1;
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
+#donate-amount {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  background: #0c0c0c;
+  color: #fff;
+  font-size: 16px; /* evita zoom iOS */
+}
+#donate-btn {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+  background: #10b981; /* verde */
+  color: #0b0f12;
+  font-size: 16px;
+  font-weight: 600;
+}
+.donate-note {
+  margin: 10px 0 0;
+  color: #9ca3af;
+  font-size: 0.92rem;
+}
+
+/* Demo card form */
+.demo-card {
+  margin-top: 16px;
+  color: #e5e7eb;
+}
+.demo-card summary {
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  margin-bottom: 12px;
+}
+.demo-card summary::-webkit-details-marker { display: none; }
+.demo-card summary::after {
+  content: " ▼";
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+.demo-card[open] summary::after { content: " ▲"; }
+
+#fake-card-form {
+  padding: 14px;
+  border: 1px dashed #2a2a2a;
+  border-radius: 10px;
+  background: #0f0f0f;
+}
+#fake-card-form .row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+#fake-card-form .row.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+#fake-card-form label {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+#fake-card-form input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  background: #0c0c0c;
+  color: #fff;
+  font-size: 16px; /* evita zoom iOS */
+}
+#fake-card-pay {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 0;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+.demo-warning {
+  color: #fbbf24;
+  font-size: 0.9rem;
+  margin: 8px 2px 0;
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .donate-controls {
+    grid-template-columns: 1fr auto;
+  }
+  .donate-controls label { grid-column: 1 / -1; }
+  #donate-amount { grid-column: 1 / 2; }
+  #donate-btn { grid-column: 2 / 3; }
+}
+
+
