@@ -28,6 +28,55 @@
       <iframe width="560" height="315" src="https://www.youtube.com/embed/7wEwLmjDIxU?si=Fn-zpCjyIVmb19UU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 
+    <!-- DONATE -->
+    <div class="donate">
+      <h3>Fai una Donazione</h3>
+    
+      <div class="donate-controls">
+        <label for="donate-amount">Importo (€)</label>
+        <input id="donate-amount" type="number" inputmode="decimal" min="1" step="1" placeholder="10" />
+        <button id="donate-btn" type="button">Dona ora</button>
+      </div>
+    
+      <p class="donate-note">
+        Il pagamento avviene su una pagina sicura esterna (es. Stripe/PayPal). Noi non salviamo i dati della carta.
+      </p>
+    
+      <!-- Demo-only: finto form carta (UI non funzionante) -->
+      <details class="demo-card">
+        <summary>Mostra form carta (demo UI)</summary>
+        <form id="fake-card-form" onsubmit="return false;">
+          <div class="row">
+            <label for="cc-name">Intestatario</label>
+            <input id="cc-name" type="text" placeholder="Nome Cognome" autocomplete="cc-name" />
+          </div>
+          <div class="row">
+            <label for="cc-number">Numero carta</label>
+            <input id="cc-number" type="text" inputmode="numeric" maxlength="19"
+                   placeholder="1234 5678 9012 3456" autocomplete="cc-number" />
+          </div>
+          <div class="row two">
+            <div>
+              <label for="cc-exp">Scadenza (MM/AA)</label>
+              <input id="cc-exp" type="text" inputmode="numeric" maxlength="5"
+                     placeholder="MM/AA" autocomplete="cc-exp" />
+            </div>
+            <div>
+              <label for="cc-cvc">CVC</label>
+              <input id="cc-cvc" type="text" inputmode="numeric" maxlength="4"
+                     placeholder="CVC" autocomplete="cc-csc" />
+            </div>
+          </div>
+          <div class="msg" id="fake-card-msg"></div>
+          <button id="fake-card-pay" type="button">Paga (demo)</button>
+        </form>
+        <p class="demo-warning">
+          ⚠️ Demo UI: non invia nessun dato. Per i pagamenti reali usa Stripe Checkout/Elements o PayPal.
+        </p>
+      </details>
+    </div>
+
+
     <!-- Patreon Section -->
     <div class="patreon">
       <h3>I nostri migliori Patreon</h3>
