@@ -29,12 +29,18 @@ html, body {
   z-index: 10;
 }
 .panel {
-  width: min(92vw, 420px);
+  width: min(92vw, 520px);
   background:#111; border:1px solid #222; border-radius:14px; padding:22px;
   box-shadow: 0 10px 30px rgba(0,0,0,.6);
   color:#eee;
 }
-.panel h2 { margin: 0 0 10px; font-size: 1.15rem; }
+.panel h2 { margin: 0 0 8px; font-size: 1.15rem; }
+.panel .subtitle {
+  margin: 0 0 14px;
+  font-size: 0.95rem;
+  color: #bdbdbd;
+  line-height: 1.35;
+}
 .panel .row { display:flex; gap: 10px; }
 .panel input[type="password"] {
   flex: 1;
@@ -53,7 +59,7 @@ html, body {
   cursor: pointer;
   background: #3b82f6;
   color: #fff;
-  font-size: 16px;   /* 👈 anche qui, per coerenza */
+  font-size: 16px;   /* 👈 coerenza e niente zoom */
 }
 .msg {
   margin-top: 10px;
@@ -83,7 +89,7 @@ html, body {
   border-radius: 12px;
   padding: 20px;
   width: 100%;
-  max-width: 600px;
+  max-width: 720px;
 }
 .patreon h3 {
   margin-top: 0;
@@ -92,6 +98,8 @@ html, body {
   margin-bottom: 15px;
   color: #facc15;
 }
+
+/* Liste */
 .patreon ol {
   margin: 0;
   padding-left: 20px;
@@ -101,14 +109,46 @@ html, body {
   font-size: 1rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-.patreon li:first-child {
-  font-weight: bold;
-  color: #22c55e;
+.label { display: inline-flex; align-items: center; gap: 8px; }
+.amount { color: #9ca3af; }
+
+/* Top 3 evidenziata */
+.top3 {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 12px;
 }
-.amount {
-  color: #9ca3af;
+.top3 .top {
+  margin: 8px 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #2a2a2a;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
 }
-.patreon li:first-child .amount {
-  color: #facc15;
+.top3 .first {
+  border-color: #bfa10055;
+  background: linear-gradient(180deg, rgba(250,204,21,0.12), rgba(250,204,21,0.04));
+}
+.top3 .first .amount { color: #facc15; }
+.top3 .second {
+  border-color: #c0c0c055;
+  background: linear-gradient(180deg, rgba(192,192,192,0.10), rgba(255,255,255,0.03));
+}
+.top3 .third {
+  border-color: #cd7f3255;
+  background: linear-gradient(180deg, rgba(205,127,50,0.10), rgba(255,255,255,0.03));
+}
+
+.medal { width: 1.1em; display: inline-block; }
+
+/* Resto della lista */
+.rest .amount { color: #9ca3af; }
+
+/* Accessibilità: focus */
+.panel input[type="password"]:focus,
+.panel button:focus {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
 }
