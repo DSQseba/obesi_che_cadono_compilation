@@ -153,5 +153,96 @@
       pw.focus();
     });
   </script>
+  <script>
+// === DONATE REDIRECT ===
+// Replace with your own safe payment URL:
+// - Stripe Payment Link (consigliato): es. https://buy.stripe.com/xxxx
+//   Se hai creato un link “donazione” con importo variabile, basta aprirlo.
+// - Oppure PayPal.me: https://www.paypal.me/TUOUSERNAME/AMOUNT
+const PAYMENT_URL_BASE = "https://www.paypal.me/TUOUSERNAME"; // <-- CAMBIA QUESTO
+
+document.getElementById('donate-btn')?.addEventListener('click', () => {
+  const amountEl = document.getElementById('donate-amount');
+  const raw = (amountEl.value || "").trim().replace(",", ".");
+  const amount = Number(raw);
+
+  if (!amount || amount < 1) {
+    alert("Inserisci un importo valido (minimo 1 €).");
+    amountEl.focus();
+    return;
+  }
+
+  // PAYPAL.ME: amount in EUR via suffix
+  // Esempio: https://www.paypal.me/TUOUSERNAME/25
+  const url = `${PAYMENT_URL_BASE}/${Math.round(amount)}`;
+
+  // Se usi Stripe Payment Links con importo fisso/variabile, sostituisci sopra con il link corretto.
+  window.location.href = url;
+});
+
+// === DEMO CARD FORM (UI ONLY) ===
+(function setupDemoCard() {
+  const numberEl = document.getElementById('cc-number');
+  const expEl    = document.getElementById('cc-exp');
+  const cvcEl    = document.getElementById('cc-cvc');
+  const msgEl    = document.getElementById('fake-card-msg');
+  const btn      = document.getElementById('fake-card-pay');
+
+  if (!numberEl || !expEl || !cvcEl || !btn) return;
+
+  // mask card number: 1234 5678 9012 3456
+  numberEl.addEventListener('input', () => {
+    let v = numberEl.value.replace(/\D/g, '').slice(0, 16);
+    v = v.replace(/(\d{4})(?=\d)/g, "$1 ");
+    numberEl.value = v;
+  });
+
+  // mask exp: MM/AA
+  expEl.addEventListener('input', () => {
+    let v = expEl.value.replace(/\D/g, '').slice(0, 4);
+    if (v.length >= 3) v = v.slice(0,2) + "/" + v.slice(2);
+    expEl.value = v;
+  });
+
+  // cvc max 4
+  cvcEl.addEventListener('input', () => {
+    cvcEl.value = cvcEl.value.replace(/\D/g, '').slice(0,4);
+  });
+
+  function luhnOk(num) {
+    const digits = num.replace(/\s+/g, '');
+    let sum = 0, dbl = false;
+    for (let i = digits.length - 1; i >= 0; i--) {
+      let d = parseInt(digits[i], 10);
+      if (dbl) { d *= 2; if (d > 9) d -= 9; }
+      sum += d;
+      dbl = !dbl;
+    }
+    return (sum % 10) === 0 && digits.length >= 13;
+  }
+
+  btn.addEventListener('click', () => {
+    const num = numberEl.value.trim();
+    const exp = expEl.value.trim();
+    const cvc = cvcEl.value.trim();
+
+    if (!luhnOk(num)) {
+      msgEl.textContent = "Numero carta non valido (demo).";
+      return;
+    }
+    if (!/^\d{2}\/\d{2}$/.test(exp)) {
+      msgEl.textContent = "Scadenza non valida (MM/AA).";
+      return;
+    }
+    if (!/^\d{3,4}$/.test(cvc)) {
+      msgEl.textContent = "CVC non valido.";
+      return;
+    }
+    msgEl.style.color = "#86efac";
+    msgEl.textContent = "OK (demo). Questo form non effettua pagamenti reali.";
+  });
+})();
+</script>
+
 </body>
 </html>
