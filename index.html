@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Password Protected Video + Patreon List</title>
+  <title>Obesi-che-cadono-compilation</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,6 +12,7 @@
   <div id="gate">
     <div class="panel">
       <h2>Inserisci Password</h2>
+      <p class="subtitle">Inserisci password per accedere alla tua area riservata di Obesi Che Cadono Compilation</p>
       <div class="row">
         <input id="pw" type="password" placeholder="Password" autocomplete="off" />
         <button id="go" type="button">Unlock</button>
@@ -32,22 +33,39 @@
 
     <!-- Patreon Section -->
     <div class="patreon">
-      <h3>Principali Patreon del Sito</h3>
-      <ol>
-        <li>NicolaDeMarchi_001 <span class="amount">€ 7.146</span></li>
-        <li>DarkWolf89 <span class="amount">€ 1.980</span></li>
-        <li>Luna_Rossa92 <span class="amount">€ 1.430</span></li>
-        <li>PixelHunter77 <span class="amount">€ 1.120</span></li>
-        <li>SakuraBloomX <span class="amount">€ 870</span></li>
-        <li>IronForge_21 <span class="amount">€ 655</span></li>
-        <li>EchoByte_999 <span class="amount">€ 420</span></li>
+      <h3>I migliori Patreon di Obesi-che-cadono-compilation</h3>
+
+      <!-- Top 3 evidenziata -->
+      <ol class="top3">
+        <li class="top first">
+          <span class="label"><span class="medal">🥇</span> NicolaDeMarchi_001</span>
+          <span class="amount">€ 7.146</span>
+        </li>
+        <li class="top second">
+          <span class="label"><span class="medal">🥈</span> xx_3l3_monza_xx</span>
+          <span class="amount">€ 2.450</span>
+        </li>
+        <li class="top third">
+          <span class="label"><span class="medal">🥉</span> Pantarell4_99</span>
+          <span class="amount">€ 2.210</span>
+        </li>
+      </ol>
+
+      <!-- Altri donatori -->
+      <ol start="4" class="rest">
+        <li><span class="label">DarkWolf89</span> <span class="amount">€ 1.980</span></li>
+        <li><span class="label">Luna_Rossa92</span> <span class="amount">€ 1.430</span></li>
+        <li><span class="label">PixelHunter77</span> <span class="amount">€ 1.120</span></li>
+        <li><span class="label">SakuraBloomX</span> <span class="amount">€ 870</span></li>
+        <li><span class="label">IronForge_21</span> <span class="amount">€ 655</span></li>
+        <li><span class="label">EchoByte_999</span> <span class="amount">€ 420</span></li>
       </ol>
     </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const PASSWORD = "changeme"; // <<-- cambia qui la password
+      const PASSWORD = "cacca_popo_pupu_cacca"; // <<-- cambia qui la password
 
       const gate = document.getElementById('gate');
       const app  = document.getElementById('app');
