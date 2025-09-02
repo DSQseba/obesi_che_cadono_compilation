@@ -50,7 +50,7 @@ html, body {
   background: #0c0c0c;
   color: #fff;
   outline: none;
-  font-size: 16px;   /* 👈 Previene zoom su iOS */
+  font-size: 16px;   /* Previene zoom su iOS */
 }
 .panel button {
   padding: 12px 16px;
@@ -59,7 +59,7 @@ html, body {
   cursor: pointer;
   background: #3b82f6;
   color: #fff;
-  font-size: 16px;   /* 👈 coerenza e niente zoom */
+  font-size: 16px;
 }
 .msg {
   margin-top: 10px;
@@ -102,7 +102,7 @@ html, body {
 /* Liste */
 .patreon ol {
   margin: 0;
-  padding-left: 20px;
+  padding-left: 20px; /* numerazione standard */
 }
 .patreon li {
   margin: 6px 0;
@@ -114,14 +114,14 @@ html, body {
 .label { display: inline-flex; align-items: center; gap: 8px; }
 .amount { color: #9ca3af; }
 
-/* Top 3 evidenziata */
+/* --- HIGHLIGHT SOLO PER TOP 3 --- */
 .top3 {
-  list-style: none;
+  list-style: none;    /* niente numeri per la top 3 */
   padding-left: 0;
   margin-bottom: 12px;
 }
-.top3 .top {
-  margin: 8px 0;
+.top3 li {
+  margin: 10px 0;
   padding: 12px 14px;
   border-radius: 12px;
   border: 1px solid #2a2a2a;
@@ -140,15 +140,8 @@ html, body {
   border-color: #cd7f3255;
   background: linear-gradient(180deg, rgba(205,127,50,0.10), rgba(255,255,255,0.03));
 }
-
 .medal { width: 1.1em; display: inline-block; }
 
-/* Resto della lista */
-.rest .amount { color: #9ca3af; }
-
-/* Accessibilità: focus */
-.panel input[type="password"]:focus,
-.panel button:focus {
-  outline: 2px solid #60a5fa;
-  outline-offset: 2px;
-}
+/* Resto della lista: standard, nessun highlight extra */
+.rest { /* numerazione standard già attiva via <ol> */ }
+.rest li { background: none; border: none; padding: 0; }
